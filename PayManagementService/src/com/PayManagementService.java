@@ -67,4 +67,18 @@ public class PayManagementService {
 		return output;
 	}
 
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteItem(String itemData) {
+		// Convert the input string to an XML document
+		Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
+
+		// Read the value from the element <itemID>
+		String referanceNo = doc.select("referanceNo").text();
+		String output = paymentObj.deletePayment(referanceNo);
+		return output;
+	}
+
 }
