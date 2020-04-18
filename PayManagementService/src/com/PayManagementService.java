@@ -43,4 +43,28 @@ public class PayManagementService {
 		return output;
 	}
 
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updatePayment(String paymentData) {
+		// Convert the input string to a JSON object
+
+		JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject();
+		// Read the values from the JSON object
+		String referanceNo = paymentObject.get("referanceNo").getAsString();
+		String userName = paymentObject.get("userName").getAsString();
+		String amount = paymentObject.get("amount").getAsString();
+		String email = paymentObject.get("email").getAsString();
+		String cardType = paymentObject.get("cardType").getAsString();
+		String cardNo = paymentObject.get("cardNo").getAsString();
+		String expireDate = paymentObject.get("expireDate").getAsString();
+		String CVN = paymentObject.get("CVN").getAsString();
+
+		String output = paymentObj.updatePayment(referanceNo, userName, amount, email, cardType, cardNo, expireDate,
+				CVN);
+
+		return output;
+	}
+
 }
