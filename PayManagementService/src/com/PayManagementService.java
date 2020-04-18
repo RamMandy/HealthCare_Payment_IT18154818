@@ -20,16 +20,27 @@ import org.jsoup.parser.Parser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
 @Path("/Payments")
 public class PayManagementService {
 	Payment paymentObj = new Payment();
 
 	@GET
-	@Path("/")				
+	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public String readItems() {
 		return paymentObj.readItems();
+	}
+
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertPayment(@FormParam("userName") String userName, @FormParam("amount") String amount,
+			@FormParam("email") String email, @FormParam("cardType") String cardType,
+			@FormParam("cardNo") String cardNo, @FormParam("expireDate") String expireDate,
+			@FormParam("CVN") String CVN) {
+		String output = paymentObj.insertPayment(userName, amount, email, cardType, cardNo, expireDate, CVN);
+		return output;
 	}
 
 }
